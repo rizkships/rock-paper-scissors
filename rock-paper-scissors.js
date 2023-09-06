@@ -2,6 +2,26 @@
 
 let playerScore = 0 
 let computerScore = 0
+let playerSelection
+let computerSelection
+
+const possibleChoices = document.querySelectorAll('button')
+
+possibleChoices.forEach(possibleChoice => possibleChoice.addEventListener('click', (e) => {
+    playerSelection = e.target.id
+    computerSelection = getComputerChoice()
+    console.log(playRound())
+    
+    console.log(playerSelection)
+    console.log(computerSelection)
+    
+    console.log(playerScore) 
+    console.log(computerScore)
+
+    
+}
+))
+
 
 function getComputerChoice() {
     const randomNumber = Math.floor(Math.random()*3);
@@ -18,28 +38,28 @@ function getComputerChoice() {
 
 /* this function will play a single round */
 
-function playRound(playerSelection, computerSelection){
-    if (playerSelection == computerSelection) {
+function playRound(){
+    if (playerSelection === computerSelection) {
         return "Tie Game!"
     }
-    else if (playerSelection == "rock" && computerSelection == "scissors") {
+    else if (playerSelection === "rock" && computerSelection === "scissors") {
         playerScore += 1 ;
-        return `You win! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} beats ${computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1)}`
+        return `You win! ${playerSelection} beats ${computerSelection}`
         
     }
-    else if (playerSelection == "paper" && computerSelection == "rock") {
+    else if (playerSelection === "paper" && computerSelection === "rock") {
         playerScore += 1 ;
-        return `You win! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} beats ${computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1)}`
+        return `You win! ${playerSelection} beats ${computerSelection}`
         
     }
-    else if (playerSelection == "scissors" && computerSelection == "paper") {
+    else if (playerSelection === "scissors" && computerSelection === "paper") {
         playerScore += 1;
-        return `You win! ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} beats ${computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1)}` 
+        return `You win! ${playerSelection} beats ${computerSelection}` 
         
     }
     else {
         computerScore += 1 ;
-        return `You lose! ${computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1)} beats ${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)}` 
+        return `You lose! ${computerSelection} beats ${playerSelection}` 
         
     }
 
@@ -47,11 +67,25 @@ function playRound(playerSelection, computerSelection){
 }
 
 
+// create three buttons, one for each selection (rock,paper, or scissors)
 
-    
 
 
-/* Use the previous function inside of this one to play a 5 round game that keeps score and reports a winner or loser at the end. */ 
+/*
+function rock() {
+    const computerSelection = getComputerChoice();
+  playRound('rock', computerSelection);
+};
+
+rockButton.addEventListener('click', rock); 
+
+
+ */
+
+
+
+
+/* Use the previous function inside of this one to play a 5 round game that keeps score and reports a winner or loser at the end. 
 
 function game(playRound) {
     while (playerScore < 5 && computerScore < 5) {
@@ -62,4 +96,6 @@ function game(playRound) {
 }
 
 game(playRound)
+
+*/ 
 
