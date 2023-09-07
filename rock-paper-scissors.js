@@ -1,22 +1,38 @@
 /* this function will randomly return rock, paper, or scissors */
 
+
+const computerSelectionDisplay = document.getElementById('computer-choice')
+const playerSelectionDisplay = document.getElementById('player-choice')
+const resultDisplay = document.getElementById('result')
+const playerScoreDisplay = document.getElementById('player-score')
+const computerScoreDisplay = document.getElementById('computer-score')
+const possibleChoices = document.querySelectorAll('button')
+
+
 let playerScore = 0 
 let computerScore = 0
 let playerSelection
 let computerSelection
+let result 
 
-const possibleChoices = document.querySelectorAll('button')
+
 
 possibleChoices.forEach(possibleChoice => possibleChoice.addEventListener('click', (e) => {
+    
     playerSelection = e.target.id
-    computerSelection = getComputerChoice()
-    console.log(playRound())
-    
     console.log(playerSelection)
+    playerSelectionDisplay.innerHTML = playerSelection // rules logic breaks down when I swap .innerHTML with .textContent but why?
+    getComputerChoice()
     console.log(computerSelection)
+    //computerSelectionDisplay.textContent = computerSelection
+    //playerScoreDisplay.textContent = playerScore
+    //computerScoreDisplay.textContent = computerScore
+   // console.log(playerScore)
+   // console.log(computerScore)
+    console.log(playRound()) 
+    // How to append selections, scores, and results 
+    //console.log(playRound())
     
-    console.log(playerScore) 
-    console.log(computerScore)
 
     
 }
@@ -25,18 +41,55 @@ possibleChoices.forEach(possibleChoice => possibleChoice.addEventListener('click
 
 function getComputerChoice() {
     const randomNumber = Math.floor(Math.random()*3);
-    switch(randomNumber) {
-        case 0:
-            return "rock";
-        case 1:
-            return "scissors";
-        case 2:
-            return "paper";
-    };
-
+  
+  if (randomNumber === 0) {
+    computerSelection = "rock"
+  }
+  if (randomNumber === 1) {
+    computerSelection = "scissors"
+  }
+  if (randomNumber === 2) {
+    computerSelection = "paper"
+  }
+  computerSelectionDisplay.textContent = computerSelection 
 }
 
-/* this function will play a single round */
+
+
+function playRound(){
+    if (playerSelection === computerSelection) {
+        result = "Tie Game!"
+        
+    }
+    else if (playerSelection === "rock" && computerSelection === "scissors") {
+        playerScore += 1 ;
+        result = `You win! ${playerSelection} beats ${computerSelection}`
+        
+    }
+    else if (playerSelection === "paper" && computerSelection === "rock") {
+        playerScore += 1 ;
+        result = `You win! ${playerSelection} beats ${computerSelection}`
+        
+    }
+    else if (playerSelection === "scissors" && computerSelection === "paper") {
+        playerScore += 1;
+        result = `You win! ${playerSelection} beats ${computerSelection}` 
+        
+    }
+    else {
+        computerScore += 1 ;
+        result = `You lose! ${computerSelection} beats ${playerSelection}` 
+        
+    }
+
+    resultDisplay.innerHTML = result
+    playerScoreDisplay.innerHTML = playerScore
+    computerScoreDisplay.innerHTML = computerScore
+}
+
+
+
+/* this function will play a single round 
 
 function playRound(){
     if (playerSelection === computerSelection) {
@@ -66,21 +119,7 @@ function playRound(){
 
 }
 
-
-// create three buttons, one for each selection (rock,paper, or scissors)
-
-
-
-/*
-function rock() {
-    const computerSelection = getComputerChoice();
-  playRound('rock', computerSelection);
-};
-
-rockButton.addEventListener('click', rock); 
-
-
- */
+*/
 
 
 
