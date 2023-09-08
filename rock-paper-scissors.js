@@ -20,21 +20,13 @@ let result
 possibleChoices.forEach(possibleChoice => possibleChoice.addEventListener('click', (e) => {
     
     playerSelection = e.target.id
-    console.log(playerSelection)
     playerSelectionDisplay.innerHTML = playerSelection // rules logic breaks down when I swap .innerHTML with .textContent but why?
     getComputerChoice()
-    console.log(computerSelection)
-    //computerSelectionDisplay.textContent = computerSelection
-    //playerScoreDisplay.textContent = playerScore
-    //computerScoreDisplay.textContent = computerScore
-   // console.log(playerScore)
-   // console.log(computerScore)
-    console.log(playRound()) 
-    // How to append selections, scores, and results 
-    //console.log(playRound())
-    
-
-    
+    playRound()
+    if (isGameOver()){
+      setFinalMessage()
+      restartGame()
+    }
 }
 ))
 
@@ -88,53 +80,20 @@ function playRound(){
 }
 
 
-
-/* this function will play a single round 
-
-function playRound(){
-    if (playerSelection === computerSelection) {
-        return "Tie Game!"
-    }
-    else if (playerSelection === "rock" && computerSelection === "scissors") {
-        playerScore += 1 ;
-        return `You win! ${playerSelection} beats ${computerSelection}`
-        
-    }
-    else if (playerSelection === "paper" && computerSelection === "rock") {
-        playerScore += 1 ;
-        return `You win! ${playerSelection} beats ${computerSelection}`
-        
-    }
-    else if (playerSelection === "scissors" && computerSelection === "paper") {
-        playerScore += 1;
-        return `You win! ${playerSelection} beats ${computerSelection}` 
-        
-    }
-    else {
-        computerScore += 1 ;
-        return `You lose! ${computerSelection} beats ${playerSelection}` 
-        
-    }
-
-
+function setFinalMessage() {
+  return playerScore > computerScore
+  ? (resultDisplay.innerHTML = 'You won the game!')
+  : (resultDisplay.innerHTML = 'You lost the game...')
 }
 
-*/
 
-
-
-
-/* Use the previous function inside of this one to play a 5 round game that keeps score and reports a winner or loser at the end. 
-
-function game(playRound) {
-    while (playerScore < 5 && computerScore < 5) {
-    const playerSelection = prompt("Choose rock, paper, scissors.").toLowerCase();
-    const computerSelection = getComputerChoice();
-    console.log(playRound(playerSelection, computerSelection));
-    }
+function isGameOver() {
+  return playerScore === 5 || computerScore === 5
 }
 
-game(playRound)
+function restartGame() {
+  playerScore = 0
+  computerScore = 0
+}
 
-*/ 
 
